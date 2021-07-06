@@ -7,6 +7,10 @@ extern class PushNotification {
 	static function localNotificationSchedule(data:ScheduledLocalNotification):Void;
 	static function getDeliveredNotifications(cb:Array<DeliveredNotification>->Void):Void;
 	static function removeDeliveredNotifications(arr:Array<Int>):Void;
+	#if android
+	static function createChannel(config:ChannelConfig, ?cb:Bool->Void):Void; // (optional) callback returns whether the channel was created, false means it already existed.
+	static function getChannels(cb:Array<String>->Void):Void;
+	#end
 }
 
 typedef Config = {
@@ -24,6 +28,26 @@ typedef Config = {
 	}
 	#end
 }
+
+#if android
+typedef ChannelConfig = {
+	channelId:String, // (required)
+	channelName:String, // (required)
+	?channelDescription:String, // (optional) default: undefined.
+	?playSound:Bool, // (optional) default: true
+	?soundName:String, // (optional) See `soundName` parameter of `localNotification` function
+	?importance:ChannelImportance, // (optional) default: Importance.HIGH. Int value of the Android notification importance
+	?vibrate:Bool // (optional) default: true. Creates the default vibration pattern if true.
+}
+
+enum abstract ChannelImportance(Int) to Int {
+	var DEFAULT = 3;
+	var HIGH =4;
+	var LOW = 2;
+	var MIN = 1;
+	var NONE = 0;
+}
+#end
 
 typedef Token = {
 	final token:String;
