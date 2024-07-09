@@ -3,10 +3,12 @@ package react.native.push_notification;
 @:jsRequire('react-native-push-notification')
 extern class PushNotification {
 	static function configure(config:Config):Void;
+	static function requestPermissions():Void;
 	static function localNotification(data:LocalNotification):Void;
 	static function localNotificationSchedule(data:ScheduledLocalNotification):Void;
 	static function getDeliveredNotifications(cb:Array<DeliveredNotification>->Void):Void;
 	static function removeDeliveredNotifications(arr:Array<Int>):Void;
+	static function setApplicationIconBadgeNumber(v:Int):Void;
 	#if android
 	static function createChannel(config:ChannelConfig, ?cb:Bool->Void):Void; // (optional) callback returns whether the channel was created, false means it already existed.
 	static function getChannels(cb:Array<String>->Void):Void;
