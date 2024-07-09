@@ -35,6 +35,7 @@ typedef Config = {
 typedef ChannelConfig = {
 	channelId:String, // (required)
 	channelName:String, // (required)
+	?showBadge:Bool, //show badge, default true
 	?channelDescription:String, // (optional) default: undefined.
 	?playSound:Bool, // (optional) default: true
 	?soundName:String, // (optional) See `soundName` parameter of `localNotification` function
